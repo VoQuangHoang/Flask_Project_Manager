@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="container-fluid">
+
+    <!-- Begin content -->
+    <div class="pt-5 pl-5">
+        <p class="font-weight-bold">情報確認</p>
+        <p class="font-weight-bold">入力された情報をＯＫボタンクリックでＤＢへ保存してください</p>
+    </div>
+
+    <div class="row pl-5">
+        <div class="col-md-6">
+            <table class="table table-sm table-bordered mt-4">
+                <thead>
+
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row" style="width:40%">アカウント名:</th>
+                        <td>
+                            {{form.email.data}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">グループ:</th>
+                        <td>
+                            {{group_by_id.group_name}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">氏名:</th>
+                        <td>
+                            {{form.full_name.data}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">カタカナ氏名:</th>
+                        <td>
+                            {{form.full_name_kana.data}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">生年月日:</th>
+                        <td>
+                            {{form.birthday.data}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">メールアドレス:</th>
+                        <td>
+                            {{form.persional_email.data}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">電話番号:</th>
+                        <td>
+                            {{form.tel.data}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="table table-sm table-bordered mt-4">
+                <thead>
+                    <tr>
+                        <th colspan="3" class="text-center">
+                            <a class="font-weight-bold" data-toggle="collapse" href="#collapse2" role="button"
+                                aria-expanded="false" aria-controls="collapse2">端末</a>
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody class="collapse" id="collapse2">
+                    <tr>
+                        <th scope="row">装置名</th>
+                        <td>
+                            開始日
+                        </td>
+                        <td>
+                            終了日
+                        </td>
+                    </tr>
+                    {% if row_device != [] %}
+                    {% for row in row_device %}
+                    <tr>
+                        <th scope="row">{{row[1]}}</th>
+                        <td>
+                            {{row[2]}}
+                        </td>
+                        <td>
+                            {{row[3]}}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% endif %}
+                </tbody>
+            </table>
+
+
+            <div class="pb-5">
+                <form action="/{{action}}" method="post">
+                    <input type="hidden" name="device" value="{{row_device}}">
+                    <input type="hidden" name="email" value="{{form.email.data}}">
+                    <input type="hidden" name="group" value="{{form.group.data}}">
+                    <input type="hidden" name="role" value="{{form.role.data}}">
+                    <input type="hidden" name="gender" value="{{form.gender.data}}">
+                    <input type="hidden" name="password" value="{{form.password.data}}">
+                    <input type="hidden" name="persional_email" value="{{form.persional_email.data}}">
+                    <input type="hidden" name="full_name" value="{{form.full_name.data}}">
+                    <input type="hidden" name="full_name_kana" value="{{form.full_name_kana.data}}">
+                    <input type="hidden" name="tel" value="{{form.tel.data}}">
+                    <input type="hidden" name="birthday" value="{{form.birthday.data}}">
+                    <button style="margin-left: 40%;" type="submit" class="btn btn-secondary btn-sm">OK</button>
+                    <button class="btn btn-dark btn-sm ml-2" onclick="goBack()">戻る</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- End content -->
+
+</div>
+{% endblock %}

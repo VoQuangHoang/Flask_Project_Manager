@@ -1,0 +1,358 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="container-fluid">
+
+
+
+    <!-- Begin vung input-->
+
+    <div class="row">
+
+        <div class="col-md-8 mx-auto mt-4">
+            <div class="card text-center">
+                <div class="card-header">
+                    <h5>会員情報編集</h5>
+                </div>
+                <div class="card-body text-left">
+
+                    {% for message in get_flashed_messages() %}
+                    <div class="alert alert-warning">
+                        <button type="button" class="close" data-dismiss="alert">
+                            x
+                        </button>
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+
+                    <form action="{{url_for('auth.confirm')}}" id="addForm" method="POST">
+                        {{ form.csrf_token }}
+
+                        <fieldset class="email form-group row mt-4">
+                            <label for="email" class="col-sm-3 col-form-label">
+                                <span class="text-danger">* </span>{{ form.email.label }}
+                            </label>
+                            <div class="col-sm-5">
+                                {% if user %}
+                                {{ form.email( class="form-control",type="mail", disabled=True, value=user.User.email)}}
+                                {% else %}
+                                {{ form.email( class="form-control",type="mail")}}
+                                {% endif %}
+                                {% if form.email.errors %}
+                                <div class="errors">
+                                    {% for error in form.email.errors %}
+                                    <span class="badge badge-danger">{{ error }}</span>{% endfor %}
+                                    </d>
+                                    {% endif %}
+                                </div>
+                        </fieldset>
+
+                        <fieldset>{{form.id(value=form.id.data)}}</fieldset>
+
+                        <fieldset class="role form-group row mt-4">
+                            <label for="role" class="col-sm-3 col-form-label">
+                                <span class="text-danger">* </span>{{ form.role.label }}
+                            </label>
+                            <div class="col-sm-3">
+                                {{ form.role(class="form-control", value=form.role.data) }}
+                                {% if form.role.errors %}
+                                <div class="errors">
+                                    {% for error in form.role.errors %}
+                                    <span class="badge badge-danger">{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                            </div>
+                        </fieldset>
+
+                        <fieldset class="group form-group row mt-4">
+                            <label for="group" class="col-sm-3 col-form-label">
+                                <span class="text-danger">* </span>{{ form.group.label }}
+                            </label>
+                            <div class="col-sm-3">
+                                {{ form.group(class="form-control", value=form.group.data) }}
+                                {% if form.group.errors %}
+                                <div class="errors">
+                                    {% for error in form.group.errors %}
+                                    <span class="badge badge-danger">{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                            </div>
+                        </fieldset>
+
+                        <fieldset class="gender form-group row mt-4">
+                            <label for="gender" class="col-sm-3 col-form-label">
+                                <span class="text-danger">* </span>{{ form.gender.label }}
+                            </label>
+                            <div class="col-sm-3">
+                                {{ form.gender(class="form-control", value=form.gender.data) }}
+                            </div>
+                        </fieldset>
+
+                        <fieldset class="full_name form-group row mt-4">
+                            <label for="full_name" class="col-sm-3 col-form-label">
+                                <span class="text-danger">* </span>{{ form.full_name.label }}
+                            </label>
+                            <div class="col-sm-5">
+                                {{ form.full_name(class="form-control", value=form.full_name.data) }}
+                                {% if form.full_name.errors %}
+                                <div class="errors">
+                                    {% for error in form.full_name.errors %}
+                                    <span class="badge badge-danger">{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                            </div>
+                        </fieldset>
+
+                        <fieldset class="full_name_kana form-group row mt-4">
+                            <label for="full_name_kana" class="col-sm-3 col-form-label">
+                                {{ form.full_name_kana.label }}
+                            </label>
+                            <div class="col-sm-5">
+                                {{ form.full_name_kana(class="form-control", type="text", value=form.full_name_kana.data) }}
+                                {% if form.full_name_kana.errors %}
+                                <div class="errors">
+                                    {% for error in form.full_name_kana.errors %}
+                                    <span class="badge badge-danger">{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                            </div>
+                        </fieldset>
+
+                        <fieldset class="birthday form-group row mt-4">
+                            <label for="birthday" class="col-sm-3 col-form-label"><span class="text-danger">*</span>
+                                {{ form.birthday.label }}
+                            </label>
+                            <div class="col-sm-3">
+                                {{ form.birthday(class="form-control", type="date", value=form.birthday.data) }}
+                                {% if form.birthday.errors %}
+                                <div class="errors">
+                                    {% for error in form.birthday.errors %}
+                                    <span class="badge badge-danger">{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                            </div>
+                        </fieldset>
+
+                        <fieldset class="persional_email form-group row mt-4">
+                            <label for="persional_email" class="col-sm-3 col-form-label">
+                                {{ form.persional_email.label }}
+                            </label>
+                            <div class="col-sm-5">
+                                {{ form.persional_email(class="form-control", type="text", value=form.persional_email.data) }}
+                                {% if form.persional_email.errors %}
+                                <div class="errors">
+                                    {% for error in form.persional_email.errors %}
+                                    <span class="badge badge-danger">{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                            </div>
+                        </fieldset>
+
+                        <fieldset class="tel form-group row mt-4">
+                            <label for="tel" class="col-sm-3 col-form-label"><span class="text-danger">*</span>
+                                {{ form.tel.label }}</label>
+                            <div class="col-sm-5">
+                                {{ form.tel(class="form-control", type="text", value=form.tel.data) }}
+                                {% if form.tel.errors %}
+                                <div class="errors">
+                                    {% for error in form.tel.errors %}
+                                    <span class="badge badge-danger">{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                            </div>
+                        </fieldset>
+
+                        <fieldset class="password form-group row mt-4">
+                            <label for="password" class="col-sm-3 col-form-label"><span class="text-danger">*</span>
+                                {{ form.password.label }}
+                            </label>
+                            <div class="col-sm-5">
+                                {{ form.password(class="form-control", type="password") }}
+                                {% if form.password.errors %}
+                                <div class="errors">
+                                    {% for error in form.password.errors %}
+                                    <span class="badge badge-danger">{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                            </div>
+
+                        </fieldset>
+
+                        <fieldset class="confirm form-group row mt-4">
+                            <label for="confirm" class="col-sm-3 col-form-label"><span class="text-danger">*</span>
+                                {{ form.confirm.label }}
+                            </label>
+                            <div class="col-sm-5">
+                                {{ form.confirm(class="form-control", type="password") }}
+                                {% if form.confirm.errors %}
+                                <div class="errors">
+                                    {% for error in form.confirm.errors %}
+                                    <span class="badge badge-danger">{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                            </div>
+                        </fieldset>
+                        <div class="mt-4">
+                            <a class="font-weight-bold" data-toggle="collapse" href="#collapse1" role="button"
+                                aria-expanded="false" aria-controls="collapse1">端末</a>
+                        </div>
+
+                        <div class="collapse" id="collapse1">
+                            <div id="mydevice" class="abc device-list">
+                                {% if devices_by_id %}
+                                {% for device_by_id in devices_by_id %}
+                                <div class="form-group row mt-4">
+                                    <label for="device" class="col-sm-2 col-form-label">
+                                        <span class="text-danger">*</span>装置名:
+                                    </label>
+                                    <div class="col-sm-3">
+                                        <select name="device" class="form-control">
+                                            <option value="">選択してください</option>
+                                            {% for device in devices %}
+                                            {% if device_by_id.device_id == device.device_id %}
+                                            <option selected value="{{ device.device_id }}">{{ device.device_name }}
+                                            </option>
+                                            {% else %}
+                                            <option value="{{ device.device_id }}">{{ device.device_name }}</option>
+                                            {% endif %}
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+
+                                    <label for="date_start" class="col-form-label">
+                                        開始日:<span>&nbsp;</span>
+                                    </label>
+                                    <div class="">
+                                        <input type="date" class="form-control" name="date_start"
+                                            value="{{device_by_id.User_device_history.start_date}}">
+                                    </div>
+
+                                    <label for="date_end" class="col-form-label ml-2">
+                                        失効日:<span>&nbsp;</span><span>&nbsp;</span>
+                                    </label>
+                                    <div class="">
+                                        <input type="date" class="form-control" name="date_end"
+                                            value="{{device_by_id.User_device_history.end_date}}">
+                                    </div>
+                                    <input type="hidden" name="device_his_id"
+                                        value="{{device_by_id.User_device_history.id}}">
+                                    <div class="col-sm-2"><a class="deleteRow"></a></div>
+                                </div>
+                                {% endfor %}
+                                {% else %}
+                                <div class="form-group row mt-4">
+                                    <label for="device" class="col-sm-2 col-form-label">
+                                        <span class="text-danger">*</span>装置名:
+                                    </label>
+                                    <div class="col-sm-3">
+                                        <select name="device" class="form-control">
+                                            <option value="">選択してください</option>
+                                            {% for device in devices %}
+                                            <option value="{{ device.device_id }}">{{ device.device_name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+
+                                    <label for="date_start" class="col-form-label">
+                                        開始日:<span>&nbsp;</span>
+                                    </label>
+                                    <div class="">
+                                        <input type="date" class="form-control" id="date_start" name="date_start">
+                                    </div>
+
+                                    <label for="date_end" class="col-form-label ml-2">
+                                        失効日:<span>&nbsp;</span><span>&nbsp;</span>
+                                    </label>
+                                    <div class="">
+                                        <input type="date" class="form-control" id="date_end" name="date_end">
+                                    </div>
+                                    <input type="hidden" name="device_his_id" value="">
+                                    <div class="col-sm-2"><a class="deleteRow"></a></div>
+                                </div>
+                                {%  endif %}
+
+                            </div>
+                            <div>
+                                <input type="button" class="btn btn-secondary btn-block " onclick="addRow()" id="addrow"
+                                    value="+" />
+                            </div>
+                            <script>
+                                function addRow() {
+                                    var newRow = $("<section>");
+                                    var cols = "";
+                                    cols += '<div class="form-group row mt-4">';
+                                    cols +=
+                                        '<label for="device" class="col-sm-2 col-form-label"><span class="text-danger">*</span>装置名:</label>';
+                                    cols += `<div class="col-sm-3">
+                                            <select name="device" id="device" class="form-control">
+                                                <option value="">選択してください</option>
+                                                {% for device in devices %}
+                                                <option value="{{ device.device_id }}">{{ device.device_name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                            </div>
+
+                                            <label for="date_start" class="col-form-label">
+                                                開始日:<span>&nbsp;</span>
+                                            </label>
+                                            <div class="">
+                                                <input type="date" class="form-control" name="date_start">
+                                            </div>
+
+                                            <label for="date_end" class="col-form-label ml-2">
+                                                失効日:<span>&nbsp;</span><span>&nbsp;</span>
+                                            </label>
+                                            <div class="">
+                                                <input type="date" class="form-control" name="date_end">
+                                            </div>
+                                            <input type="hidden" name="device_his_id" value="">
+                                            <div><input type="button" class="ibtnDel btn btn-danger ml-2" onclick="delRow()" value="-"></div>
+                                            </div>`
+                                    newRow.append(cols);
+                                    $("#mydevice").append(newRow);
+                                }
+
+                                function delRow() {
+                                    $("#mydevice").on("click", ".ibtnDel", function (e) {
+                                        e.preventDefault();
+                                        $(this).closest("section").remove();
+                                    });
+                                }
+                            </script>
+                        </div>
+
+                        <div class="form-group row mt-4">
+                            <div class="submit-button col-sm-5 offset-sm-3">
+                                {{form.submit(class="btn btn-secondary")}}
+
+                                <button type="button" class="btn btn-dark ml-2" onclick="goBack()">戻る</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+
+
+                <div class="card-footer text-muted">
+                    #
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+<!-- End vung input -->
+
+</div>
+{% endblock %}

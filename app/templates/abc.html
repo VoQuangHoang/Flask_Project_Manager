@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+Favorite car:
+<input type="button" id="1" value="acs">
+
+<p>Click the button below to change the text displayed on the input button above.</p>
+
+<button id="2" onclick="myFunction(1,2)">Try it</button><br><br>
+
+Favorite car:
+<input id="3" value="acs">
+
+<p>Click the button below to change the text displayed on the input button above.</p>
+
+<button id="4" onclick="myFunction(3,4)">△▼</button>
+
+<script>
+function myFunction(a,b) {
+  if (document.getElementById(a).value == "acs") {
+    document.getElementById(a).value = "desc";
+    document.getElementById(b).innerText = "▲▽"
+  } else {
+    document.getElementById(a).value = "acs";
+    document.getElementById(b).innerText = "△▼"
+  }
+}
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+<!-- asdsad -->
+<!-- <div class="mt-4">
+                            <a class="font-weight-bold" data-toggle="collapse" href="#collapse1" role="button"
+                                aria-expanded="false" aria-controls="collapse1">端末</a>
+                        </div>
+
+                        <div class="collapse" id="collapse1">
+                            <div id="mydevice" class="abc device-list">
+                                <fieldset class="form-group row mt-4">
+                                    <label for="device" class="col-sm-2 col-form-label"><span
+                                            class="text-danger">*</span>
+                                        {{ form.device.label }}
+                                    </label>
+                                    <div class="col-sm-3">
+                                        {{ form.device(class="form-control") }}
+                                    </div>
+
+                                    <label for="datein"
+                                        class="col-form-label">{{ form.date_start.label }}<span>&nbsp;</span></label>
+                                    <div class="">
+                                        {{form.date_start(class="form-control", type="date")}}
+                                    </div>
+
+                                    <label for="dateout"
+                                        class="col-form-label ml-2">{{ form.date_end.label }}<span>&nbsp;</span><span>&nbsp;</span></label>
+                                    <div class="">
+                                        {{form.date_end(class="form-control", type="date")}}
+                                    </div>
+                                    <div class="col-sm-2"><a class="deleteRow"></a></div>
+                                </fieldset>
+                            </div> -->
+                            <!-- <div>
+                                <input type="button" class="btn btn-secondary btn-block " id="addrow" value="+" />
+                            </div> -->
+                        <!-- </div> -->
