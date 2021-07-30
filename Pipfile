@@ -12,6 +12,7 @@ flask-wtf = "*"
 email-validator = "*"
 
 [dev-packages]
+pylint = "*"
 
 [requires]
 python_version = "3.9"

@@ -1,10 +1,10 @@
-from flask import Blueprint, g
+from flask import Blueprint, g, flash, url_for, request, redirect, render_template, abort, current_app
 from flask.templating import render_template
-from flask import request, redirect, render_template
 from . import db
 from math import ceil
 from .models import User, Role, Group, User_device_history, Device
 from flask_login import current_user, login_required
+
 
 main = Blueprint('main', __name__)
 
@@ -14,6 +14,7 @@ ROWS_PER_PAGE = 5
 @main.route('/', methods=['GET'])
 @login_required
 def index():
+    """Redirect to manager page"""
     groups = Group.query.all()
     page = request.args.get('page', 1, type=int)
 
@@ -44,17 +45,22 @@ def index():
     return render_template('manager.html',current_user=current_user,asc=asc,desc=desc, users=users, groups=groups, text = text,groupname = groupname,
                             pagegroup = (ceil(users.page/3)-1), pagesgroup = (ceil(users.pages/3)-1))          
 
-
 @main.route('/detail/<int:id>')
 @login_required
 def detail(id):
+    """Redirect to the detail user page"""
     user = db.session.query(User, Group.group_name).join(Group).filter(User.user_id == id).first()
     devices_his = db.session.query(User_device_history, Device.device_name).join(Device).filter(User_device_history.user_id == id).all()
-    return render_template('detail.html', user=user, user_id = id, devices_his=devices_his)
+    if user:
+        return render_template('detail.html', user=user, user_id = id, devices_his=devices_his)
+    flash('MSG005: 検索条件に該当するユーザが見つかりません。', 'danger')
+    return redirect(url_for('main.notification'))
+    
 
 @main.route('/notification')
-@login_required
 def notification():
+    """Redirect to the notification page"""
     return render_template('notification.html')
+
 
   

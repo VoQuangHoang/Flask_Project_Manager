@@ -1,7 +1,9 @@
 <!-- Begin footer -->
 <footer class="bg-light text-dark" style="clear: both; position: relative;">
-    <p style="text-align: center; padding: 10px;" class="mt-4"> Copyright &copy; <script>
-            document.write(new Date().getFullYear())
-        </script> B.A.P ソフトウエア会社. All rights reserved.</p>
+    <p style="text-align: center; padding: 10px;" class="mt-4"> Copyright &copy; <span id="yearfooter"></span>
+        <script>
+            document.getElementById("yearfooter").innerHTML = (new Date().getFullYear())
+        </script> B.A.P ソフトウエア会社. All rights reserved.
+    </p>
 </footer>
 <!-- End footer -->

@@ -21,21 +21,23 @@
                         {% for message in get_flashed_messages() %}
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
+                                <span aria-hidden="true">&times;</span>
                             </button>
-                            <strong>{{ message }}!</strong>
+                            <strong>{{ message }}</strong>
                         </div>
                         {% endfor %}
                         <form action="{{url_for('auth.login')}}" method="POST">
                             {{ form.csrf_token }}
                             <div class="form-group row">
-                                <p class="col-sm-12 text-center font-weight-bold" style="margin-top: 1rem;">アカウント名およびパスワードを入力してください</p>
+                                <p class="col-sm-12 text-center font-weight-bold" style="margin-top: 1rem;">
+                                    アカウント名およびパスワードを入力してください</p>
                             </div>
                             <fieldset class="form-group row">
-                                <label for="email" class="col-sm-3 offset-sm-1 col-form-label">{{form.email.label}}</label>
+                                <label for="email"
+                                    class="col-sm-3 offset-sm-1 col-form-label">{{form.email.label}}</label>
                                 <div class="col-sm-7">
                                     {{form.email(class="form-control", type="text")}}
-                                    
+
                                 </div>
                                 <div class="w-100 text-center">
                                     {% if form.email.errors %}
@@ -46,10 +48,11 @@
                                     </div>
                                     {% endif %}
                                 </div>
-                                
+
                             </fieldset>
                             <fieldset class="form-group row">
-                                <label for="password" class="col-sm-3 offset-sm-1 col-form-label">{{form.password.label}}</label>
+                                <label for="password"
+                                    class="col-sm-3 offset-sm-1 col-form-label">{{form.password.label}}</label>
                                 <div class="col-sm-7">
                                     {{form.password(class="form-control", type="password")}}
                                     {% if form.password.errors %}

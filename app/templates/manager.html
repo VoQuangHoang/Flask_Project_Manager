@@ -42,70 +42,70 @@
                 </div>
             </div>
 
+            <div class="table-responsive">
+                <table class="table table-hover table-bordered mt-4">
+                    <thead>
+                        <tr>
+                            <th class="text-center" scope="col">ID</th>
+                            <th scope="col" style="width:15%">氏名
+                                <input id="1" type="text" name="name" hidden value={{g.name}}>
+                                <a id="2" class="btn btn-info btn-sm font-weight-bold" onclick="formSubmit(1)"
+                                    style="float: right;">
+                                    {% if g.name == 'desc' %} {{desc}} {% else %} {{asc}} {% endif %}
+                                </a>
+                            </th>
+                            <th scope="col" style="width:10%; vertical-align:middle;">生年月日</th>
+                            <th scope="col" style="width:10%; vertical-align:middle;">グループ</th>
+                            <th scope="col" style="width:20%; vertical-align:middle;">メールアドレス</th>
+                            <th scope="col" style="vertical-align:middle;">電話番号</th>
+                            <th scope="col">ロール
+                                <input id="3" type="text" name="role" hidden value={{g.role}}>
+                                <a class="btn btn-info btn-sm font-weight-bold" id="4" onclick="formSubmit(3)"
+                                    style="float: right;">
+                                    {% if g.role == 'desc' %} {{desc}} {% else %} {{asc}} {% endif %}
+                                </a>
+                            </th>
+                            <th scope="col">失効船内での日付日
+                                <input id="5" type="text" name="date" hidden value={{g.date}}>
+                                <a class="btn btn-info btn-sm font-weight-bold" id="6" onclick="formSubmit(5)"
+                                    style="float: right;">
+                                    {% if g.date == 'desc' %} {{desc}} {% else %} {{asc}} {% endif %}
+                                </a>
+                            </th>
+                        </tr>
 
-
-            <table class="table table-bordered mt-4">
-                <thead>
-                    <tr>
-                        <th class="text-center" scope="col">ID</th>
-                        <th scope="col" style="width:15%">氏名
-                            <input id="1" type="text" name="name" hidden value={{g.name}}>
-                            <a id="2" class="btn btn-info btn-sm font-weight-bold"
-                                onclick="formSubmit(1)" style="float: right;">
-                                {% if g.name == 'desc' %} {{desc}} {% else %} {{asc}} {% endif %}
-                            </a>
-                        </th>
-                        <th scope="col" style="width:10%; vertical-align:middle;">生年月日</th>
-                        <th scope="col" style="width:10%; vertical-align:middle;">グループ</th>
-                        <th scope="col" style="width:20%; vertical-align:middle;">メールアドレス</th>
-                        <th scope="col" style="vertical-align:middle;">電話番号</th>
-                        <th scope="col">ロール
-                            <input id="3" type="text" name="role" hidden  value={{g.role}}>
-                            <a class="btn btn-info btn-sm font-weight-bold" id="4"
-                                onclick="formSubmit(3)" style="float: right;">
-                                {% if g.role == 'desc' %} {{desc}} {% else %} {{asc}} {% endif %}
-                            </a>
-                        </th>    
-                        <th scope="col">失効船内での日付日
-                            <input id="5" type="text" name="date" hidden value={{g.date}}>
-                            <a class="btn btn-info btn-sm font-weight-bold" id="6"
-                            onclick="formSubmit(5)" style="float: right;">
-                                {% if g.date == 'desc' %} {{desc}} {% else %} {{asc}} {% endif %}
-                            </a>
-                        </th>
-                    </tr>
-
-                </thead>
-                <tbody>
-                    {% for user in users.items %}
-                    <tr>
-                        <th class="text-center" scope="row"><a class="text-info"
-                                href="/detail/{{user.User.user_id}}">{{ user.User.user_id }}</a></th>
-                        <td>
-                            {{ user.User.full_name }}
-                        </td>
-                        <td>
-                            {{ user.User.birthday }}
-                        </td>
-                        <td>
-                            {{ user.group_name}}
-                        </td>
-                        <td>
-                            {{ user.User.email }}
-                        </td>
-                        <td>
-                            {{ user.User.tel }}
-                        </td>
-                        <td>
-                            {{ user.role_name}}
-                        </td>
-                        <td>
-                            {{ user.User.onboard_date}}
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {% for user in users.items %}
+                        <tr>
+                            <th class="text-center" scope="row"><a class="text-info"
+                                    href="/detail/{{user.User.user_id}}">{{ user.User.user_id }}</a></th>
+                            <td>
+                                {{ user.User.full_name }}
+                            </td>
+                            <td>
+                                {{ user.User.birthday }}
+                            </td>
+                            <td>
+                                {{ user.group_name}}
+                            </td>
+                            <td>
+                                {{ user.User.email }}
+                            </td>
+                            <td>
+                                {{ user.User.tel }}
+                            </td>
+                            <td>
+                                {{ user.role_name}}
+                            </td>
+                            <td>
+                                {{ user.User.onboard_date}}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
             <div></div>
 
             <!-- Pagination Links-->
