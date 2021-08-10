@@ -6,7 +6,7 @@
     <!-- Begin vung dieu kien tim kiem -->
     <div class="row p-4">
 
-        <form action="/" id="managerForm" method="GET" style="width: 100%;">
+        <form action="{{url_for('main.index')}}" id="managerForm" method="GET" style="width: 100%;">
             <div class="mt-4">
                 <p class="font-weight-bold">会員名称で会員を検索します。検索条件無しの場合は全て表示されます。</p>
             </div>
@@ -37,8 +37,8 @@
 
             <div class="form-group row mt-4">
                 <div class="col-sm-2 offset-sm-1">
-                    <input type="submit" class="btn btn-secondary" value="検索">
-                    <a href="{{url_for('auth.signup')}}" class="btn btn-info">新規追加</a>
+                    <button type="submit" class="btn btn-secondary"><i class="fas fa-search"></i> 検索</button>
+                    <a href="{{url_for('auth.create')}}" class="btn btn-info"><i class="fas fa-user-plus"></i> 新規追加</a>
                 </div>
             </div>
 
@@ -56,8 +56,8 @@
                             </th>
                             <th scope="col" style="width:10%; vertical-align:middle;">生年月日</th>
                             <th scope="col" style="width:10%; vertical-align:middle;">グループ</th>
-                            <th scope="col" style="width:20%; vertical-align:middle;">メールアドレス</th>
-                            <th scope="col" style="vertical-align:middle;">電話番号</th>
+                            <th scope="col" style="width:25%; vertical-align:middle;">メールアドレス</th>
+                            <th scope="col" style="width:10%; vertical-align:middle;">電話番号</th>
                             <th scope="col">ロール
                                 <input id="3" type="text" name="role" hidden value={{g.role}}>
                                 <a class="btn btn-info btn-sm font-weight-bold" id="4" onclick="formSubmit(3)"
@@ -107,50 +107,55 @@
                 </table>
             </div>
             <div></div>
-
-            <!-- Pagination Links-->
-            <div class="text-left">
-                {%if pagegroup %}
-                <a href="{{ url_for('main.index', page=(pagegroup-1)*3+1,text=text,groupname=groupname,name=g.name,role=g.role,date=g.date) }}"
-                    class="btn btn-outline-secondary">
-                    &laquo;
-                </a>
-                {% endif %}
-                <!-- Loop through the number of pages to display a link for each-->
-
-                {% for i in range(pagegroup*3+1,pagegroup*3+4) %}
-                {% if i <= users.pages %}
-                <!-- Check for the active page and set the link to "Active"-->
-                {% if i == users.page %}
-                <a href="{{ url_for('main.index', page=i,text=text,groupname=groupname,name=g.name,role=g.role,date=g.date) }}"
-                    class="btn btn-secondary">
-                    {{ i }}
-                </a>
-                {% else %}
-                <a href="{{ url_for('main.index', page=i,text=text,groupname=groupname,name=g.name,role=g.role,date=g.date) }}"
-                    class="btn btn-outline-secondary">
-                    {{ i }}
-                </a>
-                {% endif %}
-                {% endif %}
-                {% endfor %}
-
-                {%if pagesgroup > pagegroup %}
-                <a href="{{ url_for('main.index', page=(pagegroup+1)*3+1,text=text,groupname=groupname,name=g.name,role=g.role,date=g.date) }}"
-                    class="btn btn-outline-secondary 
-        {% if users.page == users.pages %}disabled{% endif %}">
-                    &raquo;
-                </a>
-                {% endif %}
-
-                <p class="mt-2">
-                    Showing page {{ users.page }} of {{ users.pages }}
-                </p>
-
-            </div>
-            <!-- End pagination -->
         </form>
+        <!-- Pagination Links-->
+        <div class="text-left">
+            {%if pagegroup %}
+            <a href="{{ url_for('main.index', page=(pagegroup-1)*3+1,text=text,groupname=groupname,name=g.name,role=g.role,date=g.date) }}"
+                class="btn btn-outline-secondary">
+                &laquo;
+            </a>
+            {% endif %}
+            <!-- Loop through the number of pages to display a link for each-->
 
+            {% for i in range(pagegroup*3+1,pagegroup*3+4) %}
+            {% if i <= users.pages %}
+            <!-- Check for the active page and set the link to "Active"-->
+            {% if i == users.page %}
+            <a href="{{ url_for('main.index', page=i,text=text,groupname=groupname,name=g.name,role=g.role,date=g.date) }}"
+                class="btn btn-secondary">
+                {{ i }}
+            </a>
+            {% else %}
+            <a href="{{ url_for('main.index', page=i,text=text,groupname=groupname,name=g.name,role=g.role,date=g.date) }}"
+                class="btn btn-outline-secondary">
+                {{ i }}
+            </a>
+            {% endif %}
+            {% endif %}
+            {% endfor %}
+
+            {%if pagesgroup > pagegroup %}
+            <a href="{{ url_for('main.index', page=(pagegroup+1)*3+1,text=text,groupname=groupname,name=g.name,role=g.role,date=g.date) }}"
+                class="btn btn-outline-secondary 
+        {% if users.page == users.pages %}disabled{% endif %}">
+                &raquo;
+            </a>
+            {% endif %}
+
+            <p class="mt-2">
+                Showing page {{ users.page }} of {{ users.pages }}
+            </p>
+
+        </div>
+        <!-- End pagination -->
+        
+        <form action="{{url_for('main.post')}}" method="post" class="ml-auto">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="userquery" value="{{list_user}}">
+            <button type="submit" class="btn btn-info" data-toggle="tooltip" data-placement="bottom"
+                title="Export CSV"><i class="fas fa-download"></i></button>
+        </form>
     </div>
 </div>
 {% endblock %}

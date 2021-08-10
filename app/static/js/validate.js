@@ -27,6 +27,7 @@ $(document).ready(function () {
         // onfocusout: false,
         // onkeyup: false,
         // onclick: false,
+        
         rules: {
             "full_name_kana": {
                 valid_name_kana: true
@@ -78,7 +79,6 @@ $(document).ready(function () {
         },
         unhighlight: function (element, errorClass, validClass) {
             $(element).closest('.validate').addClass(validClass).removeClass(errorClass);
-        },
-
+        }
     });
 })

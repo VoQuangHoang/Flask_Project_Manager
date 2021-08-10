@@ -1,0 +1,20 @@
+<tr>
+    <th scope="row" style="width: 30%;">装置名</th>
+    <td>
+        開始日
+    </td>
+    <td>
+        終了日
+    </td>
+</tr>
+{% for device in devices_his %}
+<tr>
+    <th scope="row">{{device.device_name}}</th>
+    <td>
+        {{device.User_device_history.start_date}}
+    </td>
+    <td>
+        {{device.User_device_history.end_date}}
+    </td>
+</tr>
+{% endfor %}

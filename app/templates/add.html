@@ -3,12 +3,9 @@
 {% block body %}
 <div class="container-fluid">
 
-
-
     <!-- Begin vung input-->
 
     <div class="row">
-
         <div class="col-md-8 mx-auto mt-4">
             <div class="card text-center">
                 <div class="card-header">
@@ -25,8 +22,8 @@
                     </div>
                     {% endfor %}
 
-                    <form action="{{url_for('auth.confirm')}}" onsubmit="return(checkDate())" id="addForm"
-                        method="POST">
+                    <form action="{{url_for('auth.confirm')}}" onsubmit="return checkDate()" id="addForm"
+                        method="POST" enctype=multipart/form-data>
                         {{ form.csrf_token }}
 
                         <fieldset class="email form-group row mt-4">
@@ -174,13 +171,14 @@
                                 {% endif %}
                             </div>
                         </fieldset>
-
+                        {% if user %}
+                        {% else %}
                         <fieldset class="password form-group row mt-4">
                             <label for="password" class="col-sm-3 col-form-label"><span class="text-danger">*</span>
                                 {{ form.password.label }}
                             </label>
                             <div class="col-sm-5">
-                                {{ form.password(class="form-control", type="password", autocomplete="new-password") }}
+                                {{ form.password(class="form-control", autocomplete="new-password") }}
                                 {% if form.password.errors %}
                                 <div class="errors">
                                     {% for error in form.password.errors %}
@@ -189,7 +187,6 @@
                                 </div>
                                 {% endif %}
                             </div>
-
                         </fieldset>
 
                         <fieldset class="confirm form-group row mt-4">
@@ -197,7 +194,7 @@
                                 {{ form.confirm.label }}
                             </label>
                             <div class="col-sm-5">
-                                {{ form.confirm(class="form-control", type="password", autocomplete="new-password") }}
+                                {{ form.confirm(class="form-control", autocomplete="new-password") }}
                                 {% if form.confirm.errors %}
                                 <div class="errors">
                                     {% for error in form.confirm.errors %}
@@ -207,6 +204,8 @@
                                 {% endif %}
                             </div>
                         </fieldset>
+                        {% endif %}
+
                         <div class="mt-4">
                             <a class="font-weight-bold" data-toggle="collapse" href="#collapse1" role="button"
                                 aria-expanded="false" aria-controls="collapse1">端末</a>
@@ -224,7 +223,6 @@
                                         <div class="col-sm-3">
                                             <select name="device0{{device_by_id.User_device_history.id}}"
                                                 class="form-control">
-
                                                 <option value="">選択してください</option>
                                                 {% for device in devices %}
                                                 {% if device_by_id.device_id == device.device_id %}
@@ -306,57 +304,6 @@
                                 <input type="button" class="btn btn-secondary btn-block " id="addrow" value="+" />
                             </div>
                             
-                            <script>
-                                $(document).ready(function () {
-                                    var counter = 1;
-
-                                    $("#addrow").on("click", function () {
-                                        var newRow = $("<section>");
-                                        var cols = "";
-                                        cols += '<div class="form-group row mt-4">';
-                                        cols +=
-                                            '<label for="device" class="col-sm-2 col-form-label"><span class="text-danger">*</span>装置名:</label>';
-                                        cols += `<div class="col-sm-3">
-                                            <select name="device` + counter + `" id="device` + counter +
-                                            `" class="form-control" onchange="addRequired(` + counter + `)">
-                                                <option value="">選択してください</option>
-                                                {% for device in devices %}
-                                                <option value="{{ device.device_id }}">{{ device.device_name }}</option>
-                                                {% endfor %}
-                                            </select>
-                                            </div>
-
-                                            <label for="date_start" class="col-form-label">
-                                                開始日:<span>&nbsp;</span>
-                                            </label>
-                                            <div>
-                                                <input type="date" id="date_start` + counter +
-                                            `" class="date_start form-control" name="date_start` +
-                                            counter + `">
-                                            </div>
-
-                                            <label for="date_end" class="col-form-label ml-2">
-                                                失効日:<span>&nbsp;</span><span>&nbsp;</span>
-                                            </label>
-                                            <div>
-                                                <input type="date" id="date_end` + counter +
-                                            `" class="date_end form-control" name="date_end` + counter + `">
-                                            </div>
-                                            <input type="hidden" name="dev_his_id" value="">
-                                            <div><input type="button" class="ibtnDel btn btn-danger ml-2"  value="-"></div>
-                                            </div>`
-                                        newRow.append(cols);
-                                        $("#mydevice").append(newRow);
-                                        counter++;
-                                    })
-
-                                    $("#mydevice").on("click", ".ibtnDel", function (e) {
-                                        e.preventDefault();
-                                        $(this).closest("section").remove();
-                                        counter -= 1
-                                    });
-                                })
-                            </script>
                         </div>
 
                         <div class="form-group row mt-4">
@@ -378,4 +325,57 @@
 <!-- End vung input -->
 
 </div>
+{% endblock %}
+{% block scripts %}
+<script>
+    $(document).ready(function() {
+        var counter = 1;
+
+        $("#addrow").on("click", function() {
+            var newRow = $("<section>");
+            var cols = "";
+            cols += '<div class="form-group row mt-4">';
+            cols +=
+                '<label for="device" class="col-sm-2 col-form-label"><span class="text-danger">*</span>装置名:</label>';
+            cols += `<div class="col-sm-3">
+                <select name="device` + counter + `" id="device` + counter +
+                `" class="form-control" onchange="addRequired(` + counter + `)">
+                    <option value="">選択してください</option>
+                    {% for device in devices %}
+                    <option value="{{ device.device_id }}">{{ device.device_name }}</option>
+                    {% endfor %}
+                </select>
+                </div>
+
+                <label for="date_start" class="col-form-label">
+                    開始日:<span>&nbsp;</span>
+                </label>
+                <div>
+                    <input type="date" id="date_start` + counter +
+                `" class="date_start form-control" name="date_start` +
+                counter + `">
+                </div>
+
+                <label for="date_end" class="col-form-label ml-2">
+                    失効日:<span>&nbsp;</span><span>&nbsp;</span>
+                </label>
+                <div>
+                    <input type="date" id="date_end` + counter +
+                `" class="date_end form-control" name="date_end` + counter + `">
+                </div>
+                <input type="hidden" name="dev_his_id" value="">
+                <div><input type="button" class="ibtnDel btn btn-danger ml-2"  value="-"></div>
+                </div>`
+            newRow.append(cols);
+            $("#mydevice").append(newRow);
+            counter++;
+        })
+
+        $("#mydevice").on("click", ".ibtnDel", function (e) {
+            e.preventDefault();
+            $(this).closest("section").remove();
+            counter -= 1
+        });
+    })
+</script>
 {% endblock %}

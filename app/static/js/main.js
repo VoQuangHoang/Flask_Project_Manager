@@ -19,17 +19,17 @@ function delUser() {
     return false;
 }
 
-function checkDate(){
+function checkDate() {
   var startList = new Array();
-  $(".date_start").each(function(index, el) {
+  $(".date_start").each(function (index, el) {
     startList[index] = el.value;
   });
   var endList = new Array();
-  $(".date_end").each(function(index, el) {
+  $(".date_end").each(function (index, el) {
     endList[index] = el.value;
   });
   for (let i = 0; i < startList.length; i++) {
-    if (startList[i] > endList[i]){ 
+    if (startList[i] > endList[i]) {
       $("#dateErr label").text("「失効日」は「交付年月日」より未来の日で入力してください。")
       return false;
     }
@@ -37,14 +37,13 @@ function checkDate(){
   return true;
 }
 
-function addRequired(a){
-  if ($('#device'+a).val() != ''){
-    $('#date_start'+a).attr('required',true);
-    $('#date_end'+a).attr('required',true);
-  }
-  else {
-    $('#date_start'+a).attr('required',false);
-    $('#date_end'+a).attr('required',false);
+function addRequired(a) {
+  if ($('#device' + a).val() != '') {
+    $('#date_start' + a).attr('required', true);
+    $('#date_end' + a).attr('required', true);
+  } else {
+    $('#date_start' + a).attr('required', false);
+    $('#date_end' + a).attr('required', false);
   }
 }
 
@@ -54,4 +53,7 @@ $(document).ready(function () {
   });
 });
 
-
+function formLoad() {
+  $("#btnOk").prop("disabled", true);
+  $("#confirmForm").submit();
+}

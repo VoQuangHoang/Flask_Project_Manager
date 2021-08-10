@@ -59,37 +59,19 @@
                     </tr>
                 </tbody>
             </table>
+            
             <table class="table table-sm table-hover table-bordered mt-4">
                 <thead>
                     <tr>
                         <th colspan="3" class="text-center">
-                            <a class="font-weight-bold" data-toggle="collapse" href="#collapse3" role="button"
+                            <a class="font-weight-bold" id="showdevice" data-toggle="collapse" href="#deviceloader" role="button"
                                 aria-expanded="false" aria-controls="collapse3">端末</a>
                         </th>
                     </tr>
                 </thead>
 
-                <tbody class="collapse" id="collapse3">
-                    <tr>
-                        <th scope="row" style="width: 30%;">装置名</th>
-                        <td>
-                            開始日
-                        </td>
-                        <td>
-                            終了日
-                        </td>
-                    </tr>
-                    {% for device in devices_his %}
-                    <tr>
-                        <th scope="row">{{device.device_name}}</th>
-                        <td>
-                            {{device.User_device_history.start_date}}
-                        </td>
-                        <td>
-                            {{device.User_device_history.end_date}}
-                        </td>
-                    </tr>
-                    {% endfor %}
+                <tbody class="collapse" id="deviceloader">
+                    
                 </tbody>
             </table>
             <div class="pb-5">
@@ -98,12 +80,24 @@
                         class="btn btn-secondary">編集</a>
                     <a href=" {{ url_for('auth.delete', id = user_id) }}" onclick="return delUser()"
                         class="btn btn-danger ml-2">削除</a>
+                        <a href=" {{ url_for('auth.editpassword', id = user_id) }}"
+                        class="btn btn-info ml-2">パスワード変更</a>
                     <a href="#" class="btn btn-dark ml-2" onclick="goBack()">戻る</a>
                 </form>
             </div>
         </div>
     </div>
     <!-- End content -->
-
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+$(document).ready(function(){
+    $("#showdevice").click(function(){
+        $("#deviceloader").load('/listdevice/{{user_id}}');
+    });
+});
+</script>
+    
 {% endblock %}

@@ -8,12 +8,12 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link font-weight-bold" href="{{url_for('main.index')}}">トップ</a>
-                </li>
                 <!-- <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
-            </li> -->
+                    <a class="nav-link font-weight-bold" href="{{url_for('main.index')}}">トップ</a>
+                </li> -->
+                <!-- <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li> -->
             </ul>
             <span class="navbar-item">
                 {% if current_user.is_authenticated %}
@@ -21,7 +21,10 @@
                 {% endif %}
             </span>
             <span class="navbar-item">
-                <a class="nav-link font-weight-bold" href="{{url_for('auth.logout')}}">ログアウト</a>
+                <a class="nav-link font-weight-bold" href="{{url_for('main.index')}}">トップ <i class="fas fa-house-user"></i></a>
+            </span>
+            <span class="navbar-item">
+                <a class="nav-link font-weight-bold" href="{{url_for('auth.logout')}}">ログアウト <i class="fas fa-sign-out-alt"></i></a>
             </span>
         </div>
     </nav>
